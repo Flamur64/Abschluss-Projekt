@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '16.x'
+        node-version: 'latest'
 
     - name: Install dependencies
       run: npm install
@@ -24,9 +24,9 @@ jobs:
     - name: Run ESLint (Code Check Test)
       run: npm run lint
 
-    - name: Run Snyk (Securtiy Check Test)
+    - name: Run Snyk (Security Check Test)
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       run: |
+        npm install -g snyk
         npx snyk test
-
