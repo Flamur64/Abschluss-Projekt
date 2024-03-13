@@ -5,7 +5,8 @@
   },
   "scripts": {
     "start": "node server.js",
-    "lint": "eslint ."
+    "eslint": "eslint .",
+    "snyk": "npx snyk test"
   },
   "name": "project",
   "version": "1.0.0",
@@ -15,6 +16,7 @@
   "license": "ISC",
   "description": "My Project",
   "devDependencies": {
-    "eslint": "^8.57.0"
+    "eslint": "^8.57.0",
+    "snyk": "^1.1283.0"
   }
 }
