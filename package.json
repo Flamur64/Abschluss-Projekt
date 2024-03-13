@@ -4,12 +4,8 @@
     "mongoose": "^7.5.3"
   },
   "scripts": {
-<<<<<<< HEAD
     "start": "node server.js",
     "lint": "eslint ."
-=======
-    "start": "node server.js"
->>>>>>> origin/master
   },
   "name": "projekt",
   "version": "1.0.0",
@@ -17,12 +13,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-<<<<<<< HEAD
   "description": "",
   "devDependencies": {
     "eslint": "^8.57.0"
   }
-=======
-  "description": ""
->>>>>>> origin/master
 }
