@@ -24,10 +24,9 @@ jobs:
     - name: Run ESLint (Code Check Test)
       run: npm run lint
 
-    - name: Snyk Security Scan
+    - name: Run Snyk (Securtiy Check Test)
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       run: |
-        npm install -g snyk
         npx snyk test
 
