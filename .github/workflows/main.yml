@@ -9,9 +9,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    env:
-      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v2
@@ -27,5 +24,10 @@ jobs:
     - name: Run ESLint (Code Check Test)
       run: npm run lint
 
-    - name: Run Snyk (Security Check Test)
-      run: npx snyk test
+    - name: Snyk Security Scan
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      run: |
+        npm install -g snyk
+        npx snyk test
+
