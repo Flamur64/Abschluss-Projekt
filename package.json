@@ -5,8 +5,7 @@
     "pm2": "^5.3.1"
   },
   "scripts": {
-    "server": "pm2 start server.js",
-    "stop": "pm2 stop server.js",
+    "start": "node server.js",
     "eslint": "eslint .",
     "snyk": "npx snyk test"
   },
