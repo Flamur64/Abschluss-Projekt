@@ -4,7 +4,7 @@
     "mongoose": "^7.5.3"
   },
   "scripts": {
-    "start": "node server.js",
+    "server": "node server.js",
     "eslint": "eslint .",
     "snyk": "npx snyk test"
   },

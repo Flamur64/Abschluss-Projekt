@@ -24,3 +24,6 @@ jobs:
 
       - name: Run Snyk (Security Check Test)
         run: npm run snyk
+
+      - name: Run Server
+        run: npm run server
