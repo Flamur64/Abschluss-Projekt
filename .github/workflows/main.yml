@@ -27,3 +27,6 @@ jobs:
 
       - name: Run Server
         run: npm run server
+
+      - name: Stop Server
+        run: npm stop server
