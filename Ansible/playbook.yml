@@ -1,0 +1,35 @@
+---
+- name: Install updates on EC2 instance
+  hosts: ec2
+  become: true
+  tasks:
+    - name: Update apt package cache
+      apt:
+        update_cache: yes
+
+- name: Install npm on EC2 instance
+  hosts: ec2
+  become: true
+  tasks:
+    - name: Install npm
+      apt:
+        name: npm
+        state: present
+
+- name: Install Node.js on EC2 instance
+  hosts: ec2
+  become: true
+  tasks:
+    - name: Install Node.js
+      apt:
+        name: nodejs
+        state: present
+
+- name: Install Git on EC2 instance
+  hosts: ec2
+  become: true
+  tasks:
+    - name: Install Git
+      apt:
+        name: git
+        state: present
