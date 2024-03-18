@@ -10,14 +10,9 @@ const app = express()
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-// Link zur Verbindung mit MongoDB
-const uri = "mongodb+srv://flamur:12345@cluster.vemnqk7.mongodb.net/?retryWrites=true&w=majority"
-
 // Funktion zur Verbindung mit MongoDB
-async function connect() {
-await mongoose.connect(uri)}
-
-// Die Verbindung mit MongoDB
+function connect() {
+mongoose.connect("mongodb+srv://flamur:12345@cluster.vemnqk7.mongodb.net/?retryWrites=true&w=majority")}
 connect()
 
 // Die Startseite
