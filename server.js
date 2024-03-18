@@ -11,9 +11,13 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 // Funktion zur Verbindung mit MongoDB
-function connect() {
-mongoose.connect("mongodb+srv://flamur:12345@cluster.vemnqk7.mongodb.net/?retryWrites=true&w=majority")}
-connect()
+mongoose.connect("mongodb+srv://flamur:12345@cluster.vemnqk7.mongodb.net/?retryWrites=true&w=majority")
+
+// "User" erstellen mit MongoDB
+const User = mongoose.model("User", {
+    username: String,
+    password: String})
+
 
 // Die Startseite
 app.get("/", (req, res) => {
@@ -50,18 +54,14 @@ app.get("/", (req, res) => {
     </html>`
     res.send(html)})
 
-// login.html mit dem Server verbinden
-app.get("/login", function (req, res) {
-    res.sendFile("login.html", { root: "./" })})
 
 // register.html mit dem Server verbinden
 app.get("/register", function (req, res) {
     res.sendFile("register.html", { root: "./" })})
 
-// "User" erstellen mit MongoDB
-const User = mongoose.model("User", {
-    username: String,
-    password: String})
+// login.html mit dem Server verbinden
+app.get("/login", function (req, res) {
+    res.sendFile("login.html", { root: "./" })})
 
 // Registrierung von "User"
 app.post("/register", async (req, res) => {
