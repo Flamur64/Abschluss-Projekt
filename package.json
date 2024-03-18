@@ -8,6 +8,7 @@
   "scripts": {
     "server": "pm2 start server.js",
     "stop": "pm2 stop server.js",
+    "restart": "pm2 restart server.js",
     "eslint": "eslint .",
     "snyk": "npx snyk test"
   },
