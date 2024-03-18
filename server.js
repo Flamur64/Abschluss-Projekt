@@ -15,8 +15,7 @@ const uri = "mongodb+srv://flamur:12345@cluster.vemnqk7.mongodb.net/?retryWrites
 
 // Funktion zur Verbindung mit MongoDB
 async function connect() {
-    await mongoose.connect(uri)
-    console.log("Verbunden mit Flamur's MongoDB")}
+await mongoose.connect(uri)}
 
 // Die Verbindung mit MongoDB
 connect()
@@ -53,9 +52,8 @@ app.get("/", (req, res) => {
             </div>
         </div>
     </body>
-    </html>`;
-    res.send(html);
-});
+    </html>`
+    res.send(html)})
 
 // login.html mit dem Server verbinden
 app.get("/login", function (req, res) {
@@ -104,9 +102,8 @@ app.post("/register", async (req, res) => {
             </div>
         </div>
     </body>
-    </html>`;
-    res.send(html);
-});
+    </html>`
+    res.send(html)})
 
 // Login von "User"
 app.post("/login", async (req, res) => {
@@ -141,8 +138,8 @@ app.post("/login", async (req, res) => {
                     <h1 class="text-center mb-4 display-4">Login erfolgreich</h1>
                 </div>
             </body>
-            </html>`;
-            res.send(html);
+            </html>`
+            res.send(html)
         } else {
             const html = `
             <!DOCTYPE html>
@@ -173,9 +170,8 @@ app.post("/login", async (req, res) => {
                     </div>
                 </div>
             </body>
-            </html>`;
-            res.send(html);
-        }
+            </html>`
+            res.send(html)}
     } else {
         const html = `
         <!DOCTYPE html>
@@ -206,12 +202,8 @@ app.post("/login", async (req, res) => {
                 </div>
             </div>
         </body>
-        </html>`;
-        res.send(html);
-    }
-});
-
+        </html>`
+        res.send(html)}})
 
 // Port für den Start des Servers
-app.listen(3000, () => {
-    console.log("App wurde gestartet auf localhost:3000")})
+app.listen(3000)
