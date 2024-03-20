@@ -1,5 +1,4 @@
----
-- name: Install updates on EC2 instance
+- name: Install updates and Node.js on EC2 instance
   hosts: ec2
   become: true
   tasks:
@@ -7,29 +6,31 @@
       apt:
         update_cache: yes
 
-- name: Install npm on EC2 instance
-  hosts: ec2
-  become: true
-  tasks:
-    - name: Install npm
-      apt:
-        name: npm
-        state: present
-
-- name: Install Node.js on EC2 instance
-  hosts: ec2
-  become: true
-  tasks:
-    - name: Install Node.js
-      apt:
-        name: nodejs
-        state: present
-
-- name: Install Git on EC2 instance
-  hosts: ec2
-  become: true
-  tasks:
     - name: Install Git
       apt:
         name: git
         state: present
+
+    - name: Install Node.js using NodeSource script
+      become: yes
+      shell: |
+        curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+        apt-get install -y nodejs
+
+- name: Clone Git repository and start project
+  hosts: ec2
+  become: true
+  tasks:
+    - name: Clone Git repository
+      git:
+        repo: https://github.com/Flamur64/Abschluss-Projekt.git
+        dest: /home/ubuntu/Abschluss-Projekt
+        clone: yes
+
+    - name: Install project dependencies with npm
+      become_user: ubuntu
+      shell: cd /home/ubuntu/Abschluss-Projekt && sudo npm install
+
+    - name: Start project with npm
+      become_user: ubuntu
+      shell: cd /home/ubuntu/Abschluss-Projekt && sudo npm run server

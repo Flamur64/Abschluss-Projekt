@@ -9,8 +9,8 @@ resource "aws_default_subnet" "subnet" {
 }
 
 resource "aws_security_group" "ports" {
-  name        = "allow-ssh-http-https"
-  description = "Security group for allowing SSH, HTTP, HTTPS traffic"
+  name        = "allow-ports"
+  description = "Security group for allowing ports"
 
   ingress {
     from_port   = 22
@@ -32,6 +32,20 @@ resource "aws_security_group" "ports" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+    ingress {
+    from_port   = 3000
+    to_port     = 3000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+    egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
 
 resource "aws_instance" "server" {
@@ -45,10 +59,13 @@ resource "aws_instance" "server" {
     Name = "Ubuntu-Server"
   }
 
-  # Hier wird die Zuweisung einer öffentlichen IP-Adresse konfiguriert
   associate_public_ip_address = true
 }
 
 output "public_ip" {
   value = aws_instance.server.public_ip
+}
+
+output "public_dns" {
+  value = aws_instance.server.public_dns
 }
