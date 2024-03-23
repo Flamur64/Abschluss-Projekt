@@ -1,2 +1,0 @@
-[ec2]
-IP ansible_python_interpreter=/usr/bin/python3
