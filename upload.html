@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 70vh;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .image-item {
+            margin: 10px;
+            max-width: 200px;
+            max-height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4 display-4">Bilder hochladen</h1>
+        <form action="/upload?username=YOUR_USERNAME" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" />
+            <button type="submit" class="btn btn-primary mt-3">Hochladen</button>
+        </form>
+        <div class="image-container" id="imageContainer"></div>
+    </div>
+    <script>
+        // Benutzername des aktuellen Benutzers
+        const username = 'YOUR_USERNAME';
+
+        // Bildcontainer
+        const imageContainer = document.getElementById('imageContainer');
+
+        // Funktion zum Abrufen der hochgeladenen Bilder
+        const getUploadedImages = () => {
+            fetch(`/images?username=${username}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Bilder anzeigen
+                    data.forEach(image => {
+                        const img = document.createElement('img');
+                        img.src = image.url;
+                        img.classList.add('image-item');
+                        imageContainer.appendChild(img);
+                    });
+                })
+                .catch(error => console.error('Fehler beim Abrufen der Bilder:', error));
+        };
+
+        // Hochgeladene Bilder beim Laden der Seite abrufen
+        getUploadedImages();
+    </script>
+</body>
+</html>
