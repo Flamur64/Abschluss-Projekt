@@ -33,7 +33,6 @@ jobs:
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           port: ${{ secrets.EC2_PORT }}
           script: |
-            cd /home/ubuntu
             cd /home/ubuntu/Abschluss-Projekt
             npm run stop
             cd /home/ubuntu
