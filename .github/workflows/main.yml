@@ -34,6 +34,9 @@ jobs:
           port: ${{ secrets.EC2_PORT }}
           script: |
             cd /home/ubuntu
+            cd /home/ubuntu/Abschluss-Projekt
+            npm run stop
+            cd /home/ubuntu
             rm -rf Abschluss-Projekt
             git clone https://github.com/Flamur64/Abschluss-Projekt.git
             cd /home/ubuntu/Abschluss-Projekt
