@@ -8,6 +8,11 @@ const fs = require('fs');
 
 require('dotenv').config();
 
+// AWS Infomrationen
+const s3 = new AWS.S3({
+  region: 'eu-central-1'
+});
+
 // Express-Anwendung wird erstellt
 const app = express();
 
