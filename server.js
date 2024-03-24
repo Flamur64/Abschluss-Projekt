@@ -78,7 +78,7 @@ app.post("/register", async (req, res) => {
     else console.log(data);
   });
 
-  res.redirect(`/upload?username=${username}`);
+  res.sendFile("register_success.html", { root: "./" });
 });
 
 // Login von "User"
