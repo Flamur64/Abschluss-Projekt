@@ -8,13 +8,6 @@ const fs = require('fs');
 
 require('dotenv').config();
 
-// AWS Infomrationen
-const s3 = new AWS.S3({
-//  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-//  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  region: 'eu-central-1'
-});
-
 // Express-Anwendung wird erstellt
 const app = express();
 
