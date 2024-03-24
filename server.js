@@ -36,30 +36,28 @@ const upload = multer({ dest: 'uploads/' });
 
 // Die Startseite
 app.get("/", (req, res) => {
-  res.sendFile("start.html", { root: "./" });
+  res.sendFile("start.html", { root: "./html" });
 });
 
 // register.html mit dem Server verbinden
 app.get("/register", function (req, res) {
-  res.sendFile("register.html", { root: "./" });
+  res.sendFile("register.html", { root: "./html" });
 });
 
 // login.html mit dem Server verbinden
 app.get("/login", function (req, res) {
-  res.sendFile("login.html", { root: "./" });
+  res.sendFile("login.html", { root: "./html" });
 });
 
 // Registrierung von "User"
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
 
-  
-  
   // Überprüfe, ob der Benutzer bereits existiert
   const existingUser = await User.findOne({ username });
   if (existingUser) {
     // Benutzer existiert bereits, daher zeige eine entsprechende Meldung an
-    return res.sendFile("register_failed.html", { root: "./" });
+    return res.sendFile("register_failed.html", { root: "./html" });
   }
 
   // Benutzername ist eindeutig, daher hashen und registrieren
@@ -78,7 +76,7 @@ app.post("/register", async (req, res) => {
     else console.log(data);
   });
 
-  res.sendFile("register_success.html", { root: "./" });
+  res.sendFile("register_success.html", { root: "./html" });
 });
 
 // Login von "User"
@@ -90,17 +88,17 @@ app.post("/login", async (req, res) => {
     if (passwordMatch) {
       res.redirect(`/upload?username=${username}`);
     } else {
-      res.sendFile("login_failed.html", { root: "./" });
+      res.sendFile("login_failed.html", { root: "./html" });
     }
   } else {
-    res.sendFile("login_failed.html", { root: "./" });
+    res.sendFile("login_failed.html", { root: "./html" });
   }
 });
 
 // Seite für das Hochladen von Bildern
 app.get("/upload", (req, res) => {
   const { username } = req.query;
-  res.sendFile("upload.html", { root: "./" });
+  res.sendFile("upload.html", { root: "./html" });
 });
 
 // Bildupload
