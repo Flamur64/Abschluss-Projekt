@@ -35,6 +35,7 @@ jobs:
           script: |
             cd /home/ubuntu/Abschluss-Projekt
             git pull
+            npm install
 
       - name: Restart Server
         run: npm run restart
