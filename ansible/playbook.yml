@@ -11,26 +11,8 @@
         name: git
         state: present
 
-    - name: Install Node.js using NodeSource script
+    - name: Install Node.js version 16
       become: yes
       shell: |
         curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
         apt-get install -y nodejs
-
-- name: Clone Git repo, create .env and install dependencies
-  hosts: ec2
-  become: true
-  tasks:
-    - name: Clone Git repository
-      git:
-        repo: https://github.com/Flamur64/Abschluss-Projekt.git
-        dest: /home/ubuntu/Abschluss-Projekt
-        clone: yes
-
-    - name: Create .env
-      become_user: ubuntu
-      shell: cd /home/ubuntu/Abschluss-Projekt && sudo touch .env
-
-    - name: Install project dependencies with npm
-      become_user: ubuntu
-      shell: cd /home/ubuntu/Abschluss-Projekt && sudo npm install

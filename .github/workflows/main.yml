@@ -44,4 +44,4 @@ jobs:
             echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
             echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
             npm install
-            NODE_OPTIONS='--no-warnings' npm run start
+            npm run server
