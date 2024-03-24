@@ -37,10 +37,11 @@ jobs:
             cd /home/ubuntu/Abschluss-Projekt
             npm run stop
             cd /home/ubuntu
+            sudo kill $(sudo lsof -t -i:3000)
             rm -rf Abschluss-Projekt
             git clone https://github.com/Flamur64/Abschluss-Projekt.git
             cd /home/ubuntu/Abschluss-Projekt
             echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
             echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
             npm install
-            npm run start
+            NODE_OPTIONS='--no-warnings' npm run start
