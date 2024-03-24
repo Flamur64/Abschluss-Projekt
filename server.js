@@ -10,8 +10,8 @@ require('dotenv').config();
 
 // AWS Infomrationen
 const s3 = new AWS.S3({
-//  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-//  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
   region: 'eu-central-1'
 });
 
@@ -33,6 +33,19 @@ const User = mongoose.model("User", {
 
 // Multer-Konfiguration für Bilduploads
 const upload = multer({ dest: 'uploads/' });
+
+// Middleware zur Überprüfung des Benutzerstatus
+const checkLoggedIn = (req, res, next) => {
+  const { username } = req.query;
+  // Überprüfen, ob der Benutzer angemeldet ist (hier können Sie eine geeignete Logik implementieren)
+  if (username) {
+    // Wenn der Benutzer angemeldet ist, rufen Sie next() auf, um fortzufahren
+    next();
+  } else {
+    // Wenn der Benutzer nicht angemeldet ist, leiten Sie ihn zur Anmeldeseite weiter oder senden Sie eine Fehlermeldung
+    res.status(401).send("Unauthorized: User not logged in");
+  }
+};
 
 // Die Startseite
 app.get("/", (req, res) => {
@@ -95,14 +108,14 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// Seite für das Hochladen von Bildern
-app.get("/upload", (req, res) => {
+// Seite für das Hochladen von Bildern, nur wenn Benutzer eingeloggt ist
+app.get("/upload", checkLoggedIn, (req, res) => {
   const { username } = req.query;
   res.sendFile("upload.html", { root: "./html" });
 });
 
-// Bildupload
-app.post("/upload", upload.single('image'), async (req, res) => {
+// Bildupload, nur wenn Benutzer eingeloggt ist
+app.post("/upload", checkLoggedIn, upload.single('image'), async (req, res) => {
   const { username } = req.query;
   const file = req.file;
 
@@ -131,8 +144,8 @@ app.post("/upload", upload.single('image'), async (req, res) => {
   });
 });
 
-// Bilder abrufen
-app.get("/images", async (req, res) => {
+// Bilder abrufen, nur wenn Benutzer eingeloggt ist
+app.get("/images", checkLoggedIn, async (req, res) => {
   const { username } = req.query;
 
   // S3-ListObjects-Parameter
