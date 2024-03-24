@@ -34,7 +34,10 @@ jobs:
           port: ${{ secrets.EC2_PORT }}
           script: |
             cd /home/ubuntu
+            rm -rf Abschluss-Projekt
             git clone https://github.com/Flamur64/Abschluss-Projekt.git
             cd /home/ubuntu/Abschluss-Projekt
+            echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
+            echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
             npm install
             npm run start
