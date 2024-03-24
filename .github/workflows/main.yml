@@ -33,8 +33,9 @@ jobs:
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
           port: ${{ secrets.EC2_PORT }}
           script: |
+            cd /home/ubuntu
+            git clone https://github.com/Flamur64/Abschluss-Projekt.git
             cd /home/ubuntu/Abschluss-Projekt
-            git pull
             npm install
 
       - name: Restart Server
