@@ -1,6 +1,6 @@
+script/key.pem
 node_modules
 .env
-scripts/key.pem
 terraform/.terraform
 terraform/.terraform.lock.hcl
 terraform/terraform.tfstate
