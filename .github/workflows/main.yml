@@ -1,4 +1,4 @@
-name: pipeline
+name: Pipeline
 
 on:
   push:
@@ -25,8 +25,16 @@ jobs:
       - name: Run Snyk (Security Check Test)
         run: npm run snyk
 
-      - name: Run Server
-        run: npm run server
+      - name: SSH into EC2 instance and update project
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          port: ${{ secrets.EC2_PORT }}
+          script: |
+            cd /home/ubuntu/Abschluss-Projekt
+            git pull
 
-      - name: Stop Server
-        run: npm stop server
+      - name: Restart Server
+        run: npm run restart
