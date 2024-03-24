@@ -37,6 +37,4 @@ jobs:
             git clone https://github.com/Flamur64/Abschluss-Projekt.git
             cd /home/ubuntu/Abschluss-Projekt
             npm install
-
-      - name: Restart Server
-        run: npm run restart
+            npm run start
