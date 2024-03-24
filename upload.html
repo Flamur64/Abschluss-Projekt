@@ -35,27 +35,33 @@
 <body>
     <div class="container">
         <h1 class="text-center mb-4 display-4">Bilder hochladen</h1>
-        <form action="/upload?username=${username}" method="post" enctype="multipart/form-data">
-            <input type="file" name="image" />
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input id="fileInput" type="file" name="image" />
             <button type="submit" class="btn btn-primary mt-3">Hochladen</button>
         </form>
         <div class="image-container" id="imageContainer"></div>
     </div>
     <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+
         // Bildcontainer
         const imageContainer = document.getElementById('imageContainer');
 
         // Funktion zum Abrufen der hochgeladenen Bilder
         const getUploadedImages = () => {
-            fetch('/images?username=${username}')
+            fetch(`/images?username=${username}`)
                 .then(response => response.json())
                 .then(data => {
                     // Bilder anzeigen
                     data.forEach(image => {
-                        const img = document.createElement('img');
+                        const img = new Image();
                         img.src = image.url;
                         img.classList.add('image-item');
-                        imageContainer.appendChild(img);
+                        img.onload = function() {
+                            // Bild erst hinzufügen, wenn es vollständig geladen ist
+                            imageContainer.appendChild(img);
+                        };
                     });
                 })
                 .catch(error => console.error('Fehler beim Abrufen der Bilder:', error));
@@ -63,6 +69,23 @@
 
         // Hochgeladene Bilder beim Laden der Seite abrufen
         getUploadedImages();
+
+        // Formularaktion dynamisch setzen
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            fetch(`/upload?username=${username}`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                // Nach dem Hochladen der Bilder die Ansicht aktualisieren
+                getUploadedImages();
+            })
+            .catch(error => console.error('Fehler beim Hochladen des Bildes:', error));
+        });
     </script>
 </body>
 </html>
