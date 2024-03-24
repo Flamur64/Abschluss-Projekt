@@ -52,6 +52,8 @@ app.get("/login", function (req, res) {
 // Registrierung von "User"
 app.post("/register", async (req, res) => {
   const { username, password } = req.body;
+
+  
   
   // Überprüfe, ob der Benutzer bereits existiert
   const existingUser = await User.findOne({ username });
@@ -76,7 +78,7 @@ app.post("/register", async (req, res) => {
     else console.log(data);
   });
 
-  res.sendFile("register_success.html", { root: "./" });
+  res.redirect(`/upload?username=${username}`);
 });
 
 // Login von "User"
@@ -90,6 +92,8 @@ app.post("/login", async (req, res) => {
     } else {
       res.sendFile("login_failed.html", { root: "./" });
     }
+  } else {
+    res.sendFile("login_failed.html", { root: "./" });
   }
 });
 
