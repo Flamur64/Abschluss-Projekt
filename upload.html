@@ -21,33 +21,33 @@
             flex-wrap: wrap;
             justify-content: center;
             margin-top: 20px;
+            max-height: 50vh;
+            overflow: auto;
         }
         .image-item {
             margin: 10px;
-            max-width: 200px;
-            max-height: 200px;
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="text-center mb-4 display-4">Bilder hochladen</h1>
-        <form action="/upload?username=YOUR_USERNAME" method="post" enctype="multipart/form-data">
+        <form action="/upload?username=${username}" method="post" enctype="multipart/form-data">
             <input type="file" name="image" />
             <button type="submit" class="btn btn-primary mt-3">Hochladen</button>
         </form>
         <div class="image-container" id="imageContainer"></div>
     </div>
     <script>
-        // Benutzername des aktuellen Benutzers
-        const username = 'YOUR_USERNAME';
-
         // Bildcontainer
         const imageContainer = document.getElementById('imageContainer');
 
         // Funktion zum Abrufen der hochgeladenen Bilder
         const getUploadedImages = () => {
-            fetch(`/images?username=${username}`)
+            fetch('/images?username=${username}')
                 .then(response => response.json())
                 .then(data => {
                     // Bilder anzeigen
