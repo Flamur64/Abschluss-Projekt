@@ -110,7 +110,6 @@ app.post("/login", async (req, res) => {
 
 // Seite für das Hochladen von Bildern, nur wenn Benutzer eingeloggt ist
 app.get("/upload", checkLoggedIn, (req, res) => {
-  const { username } = req.query;
   res.sendFile("upload.html", { root: "./html" });
 });
 
