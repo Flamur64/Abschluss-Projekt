@@ -53,6 +53,9 @@
             fetch(`/images?username=${username}`)
                 .then(response => response.json())
                 .then(data => {
+                    // Bildercontainer leeren, um vorhandene Bilder zu entfernen
+                    imageContainer.innerHTML = '';
+                    
                     // Bilder anzeigen
                     data.forEach(image => {
                         const img = new Image();

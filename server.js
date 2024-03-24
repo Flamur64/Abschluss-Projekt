@@ -126,7 +126,9 @@ app.post("/upload", upload.single('image'), async (req, res) => {
       res.status(500).send("Fehler beim Hochladen des Bildes.");
     } else {
       console.log("Bild erfolgreich hochgeladen:", data.Location);
-      res.redirect(`/upload?username=${username}`);
+      
+      // Hier rufen wir getUploadedImages() auf, um die Bilder sofort zu aktualisieren
+      getUploadedImages(username, res);
     }
   });
 });
@@ -154,6 +156,27 @@ app.get("/images", async (req, res) => {
     }
   });
 });
+
+// Funktion zum Abrufen der hochgeladenen Bilder
+const getUploadedImages = (username, res) => {
+  const params = {
+    Bucket: 'flamursbucket',
+    Prefix: username + '/',
+  };
+
+  // Bilder im S3-Bucket abrufen
+  s3.listObjects(params, function (err, data) {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Fehler beim Abrufen der Bilder.");
+    } else {
+      const images = data.Contents.map(image => ({
+        url: s3.getSignedUrl('getObject', { Bucket: params.Bucket, Key: image.Key })
+      }));
+      res.json(images);
+    }
+  });
+};
 
 // Port für den Start des Servers
 app.listen(3000);
